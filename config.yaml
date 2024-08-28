@@ -1,0 +1,30 @@
+BATCH_SIZE: 16
+COLOUR_CHANNELS: 1
+KEYS:
+- image
+- label
+LEARNING_RATE: 0.03
+MAX_EPOCHS: 10
+NO_STACKED_IMGS: 6
+UNet_metadata:
+  channels: !!python/tuple
+  - 16
+  - 32
+  - 32
+  - 128
+  dropout: 0.1
+  in_channels: 1
+  kernel_size: !!python/tuple
+  - 5
+  - 5
+  - 5
+  norm: BATCH
+  num_res_units: 4
+  out_channels: 2
+  spatial_dims: 3
+  strides: !!python/tuple
+  - 1
+  - 1
+  - 1
+VALIDATION_INTERVAL: 2
+decayRate: 0.96
