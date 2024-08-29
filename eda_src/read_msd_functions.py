@@ -121,9 +121,6 @@ if __name__ == "__main__":
     split_name = 'training'
 
     # Load dataset
-    # memoized_path = f'/raid/CataChiru/MedicalDecathlonTensors/'
-    # memoized_path = f'./datasets/MedicalDecathlonJustLungs'
-    # memoized_path = f'./datasets/MedicalDecathlonJustTumors'
     memoized_path = f'./datasets/MedicalDecathlonAugmentedTumors'
 
     # print("Unit Test 1: Load original data for train")

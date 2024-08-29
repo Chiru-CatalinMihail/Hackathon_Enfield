@@ -133,7 +133,7 @@ class msdDatasetTrain(Dataset):
 #################### NON-OVERLAPPING DATASET FOR EVALUATION ####################
 class msdDatasetEvaluation(Dataset):
     def __init__(self, dataset_folder, transform = None, stack_size = 6, batch_size = 16):
-        '''TODO: DOCUMENTAT MAI BINE AICI
+        '''
         
         self.patients - contains (image, label) pairs for each patient in the dataset
         self.stacks_in_order_indices - contains the tuples (patient_id, stack_indices, other relevant attributes based on split_type) for each stack in the dataset
@@ -147,7 +147,6 @@ class msdDatasetEvaluation(Dataset):
         self.transform = transform
 
         split_type = dataset_folder.split('/')[-2]
-        print(split_type)
 
         # Flag that indicates we are working with the training dataset, we want to apply random rotations only for this split
         self.train_flag = split_type == 'training'
@@ -205,7 +204,6 @@ class msdDatasetEvaluation(Dataset):
         
 
 #################### NON-OVERLAPPING DATASET FOR TEST ####################
-# TODO: Order the patients in the same way as the MSD challenge
 class msdDatasetTest(Dataset):
     def __init__(self, dataset_folder, transform = None, stack_size = 6, batch_size = 16):
 

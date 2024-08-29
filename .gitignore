@@ -1,0 +1,6 @@
+datasets/Rad
+datasets/MSD/MedicalDecathlon
+datasets/Trimmed_MSD
+checkpoints/
+plots/
+*.pkl

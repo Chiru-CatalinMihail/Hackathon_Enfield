@@ -5,7 +5,7 @@ __all__ = ['get_first_tumorous_slice', 'get_last_tumorous_slice', 'aggregate_hea
 
 
 
-# --------------------------------------------------------------------
+# ----------------------------- Functions to identify tumorous ends -----------------------------
 
 def get_first_tumorous_slice(patient):
     last_dim = patient.shape[-1]
@@ -28,7 +28,7 @@ def get_last_tumorous_slice(patient):
     
     raise Exception("Patient does not have tumorous slices") 
 
-# --------------------------------------------------------------------
+# -----------------------------  Stack Aggregation and Bounding box logic -----------------------------
 
 def aggregate_heatmap(dataset):
     sample_stack = torch.zeros_like(dataset[0]['label'][0, ..., 1])     
@@ -98,7 +98,7 @@ def create_boundingbox(dataset):
 
     return boxes
 
-# --------------------------------------------------------------------
+# -----------------------------  RMSE quantitative metric -----------------------------
 
 def rmse_dev_vs_val(dev_heatmap, val_heatmap):
     rmse = np.sqrt((np.square(dev_heatmap - val_heatmap))).mean()
