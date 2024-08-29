@@ -5,7 +5,7 @@ from tqdm import tqdm
 
 from .normalization import min_max_normalization
 
-__all__ = ['plot_pca_analysis', 'calculate_mean_components', 'get_pacients_pca_components']
+__all__ = ['plot_pca_analysis', 'calculate_mean_components', 'pca_singural_values', 'get_patients_pca_components']
 
 
 # ----------------------------------------------------- # TODO: Pus un nume aici
