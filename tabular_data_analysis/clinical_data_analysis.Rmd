@@ -1,0 +1,168 @@
+---
+title: "NSCLC-Radiomics-Genomics CLINICAL DATA ANALYSIS"
+author: "tudorcristina"
+date: "2024-08-29"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r include=FALSE}
+pacheteECA<-c("knitr","rmarkdown", 
+              "tidyverse", 
+              "RColorBrewer", "scales", "readxl", "ggplot2","Rmisc",
+              "lattice","ggpubr","magrittr","GGally",
+              "zoo","xts",
+              "skimr",
+              "DataExplorer",
+              "PerformanceAnalytics",
+              "plyr","dplyr","stringr","reshape2",
+              "wordcloud","tidytext","tidyr", "radarchart","ellipsis",
+              "ggcorrplot")
+#install.packages(pacheteECA, dependencies = T)
+
+lapply(pacheteECA, library, character.only=T)
+
+```
+
+```{r}
+getwd()
+?read_csv()
+clinical_data <- read_csv('NSCLC-Radiomics-Lung1.clinical-version3-Oct-2019.csv')
+clinical_data
+dim(clinical_data)
+attach(clinical_data)
+```
+
+```{r}
+clinical_data %>% 
+  select(age, Survival.time) %>% 
+  summary()
+
+
+
+```
+
+The data set for clinical data presents 422 patients across 10 atributs.
+Age (22 NAs):
+Minimum: 33.68
+1st quartille: 61.23
+Median: 68.58
+Mean:68.04
+3rd quartile: 75.81
+Max:91.7
+
+Over 75% of the patient's age in the dataset are between 61 and 87 years old.
+
+
+```{r}
+
+clinical_data %>% 
+  select(age) %>% 
+  ggplot() +
+  geom_histogram(aes(x= age), color = "darkgreen", fill = "lightgreen",
+                 na.rm = TRUE, binwidth = 1) +
+  labs(x = "Age distribution on lung cancer patients dataset")
+
+```
+
+```{r}
+
+clinical_data %>% 
+  group_by(gender) %>% 
+  dplyr::summarise(n=n())
+
+```
+
+```{r}
+
+clinical_data %>% 
+  group_by(Histology) %>% 
+  dplyr::summarise(n=n())
+
+```
+
+
+```{r}
+clinical_data %>% 
+  group_by(deadstatus.event) %>% 
+  dplyr::summarise(n=n())
+
+
+```
+
+```{r}
+clinical_data %>% 
+  select(Survival.time) %>% 
+  ggplot() +
+  geom_histogram(aes(x= Survival.time), color = "darkgreen", fill = "lightgreen",
+                 na.rm = TRUE) +
+  labs(x = "Survival time distribution on lung cancer patients dataset")
+```
+
+```{r}
+clinical_data %>% 
+  group_by(Overall.Stage) %>% 
+  dplyr::summarise(n=n())
+```
+
+```{r}
+
+clinical_data_na_remove <- na.omit(clinical_data)
+cor_1 <- cor(clinical_data_na_remove$age, 
+             clinical_data_na_remove$Survival.time,
+             )
+cor_1
+
+
+```
+# Tabel de contingenta overall stage cu histology
+
+```{r}
+
+clinical_data_na_remove %>% 
+  mutate(survival_time_interval=case_when(
+    clinical_data_na_remove$Survival.time <=365 ~ "less than 1 year",
+    clinical_data_na_remove$Survival.time > 365 & clinical_data_na_remove$Survival.time <= 730 ~ "between 1 - 2 years",
+    clinical_data_na_remove$Survival.time > 730 & clinical_data_na_remove$Survival.time <= 1825 ~ "between 2 - 5 years",
+    clinical_data_na_remove$Survival.time > 1825 ~ "over 5 years"
+  )) %>% 
+  group_by(survival_time_interval) %>% 
+  dplyr::summarise(n=n()) #%>% 
+  #table(survival_time_interval, Overall.Stage)
+
+```
+
+
+
+
+```{r}
+
+table(gender, Overall.Stage)
+
+```
+
+```{r}
+
+table(gender, Histology)
+
+```
+
+```{r}
+table(Histology, Overall.Stage)
+```
+
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+
+
